@@ -67,6 +67,7 @@
 
         let resultsHTML = '<h3>Heart Rate Zones</h3><ul>';
 
+        // Calculate individual heart rate zones
         percentages.forEach((percentage, index) => {
             const lowHR = Math.round(rhr + hrr * percentage);
             const highHR = Math.round(rhr + hrr * (percentage + 0.1));
@@ -74,6 +75,13 @@
         });
 
         resultsHTML += '</ul>';
+
+        // Calculate Target Heart Rate Zone (50%-85%)
+        const lowTargetHR = Math.round(rhr + hrr * 0.5);
+        const highTargetHR = Math.round(rhr + hrr * 0.85);
+        resultsHTML += `<h3>Target Heart Rate Zone (50%-85%)</h3>`;
+        resultsHTML += `<p>${lowTargetHR} - ${highTargetHR} bpm</p>`;
+
         document.getElementById('results').innerHTML = resultsHTML;
         document.getElementById('results').style.display = 'block';
     }
