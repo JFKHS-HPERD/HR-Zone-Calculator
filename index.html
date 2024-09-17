@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Rate Zone Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e6f7ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 5px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Heart Rate Zone Calculator</h2>
+    <label for="rhr">Resting Heart Rate (RHR):</label>
+    <input type="number" id="rhr" placeholder="Enter RHR" required>
+
+    <label for="mhr">Maximum Heart Rate (MHR):</label>
+    <input type="number" id="mhr" placeholder="Enter MHR" required>
+
+    <button onclick="calculateZones()">Calculate</button>
+
+    <div id="results" class="result" style="display:none;"></div>
+</div>
+
+<script>
+    function calculateZones() {
+        const rhr = parseInt(document.getElementById('rhr').value);
+        const mhr = parseInt(document.getElementById('mhr').value);
+        const hrr = mhr - rhr;
+        const percentages = [0.5, 0.6, 0.7, 0.8, 0.9];
+
+        let resultsHTML = '<h3>Heart Rate Zones</h3><ul>';
+
+        percentages.forEach((percentage, index) => {
+            const lowHR = Math.round(rhr + hrr * percentage);
+            const highHR = Math.round(rhr + hrr * (percentage + 0.1));
+            resultsHTML += `<li>Zone ${index + 1} (${percentage * 100}%-${(percentage + 0.1) * 100}%): ${lowHR} - ${highHR} bpm</li>`;
+        });
+
+        resultsHTML += '</ul>';
+        document.getElementById('results').innerHTML = resultsHTML;
+        document.getElementById('results').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
